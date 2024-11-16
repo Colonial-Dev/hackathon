@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocAI - Smart Document Analysis</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
+
+</head>
+
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="glass-effect fixed w-full z-50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-brain text-blue-600 text-2xl"></i>
+                <span class="text-xl font-bold text-gray-800">DocAI</span>
+            </div>
+            <div class="flex items-center space-x-6">
+                <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Dashboard</a>
+                <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">History</a>
+                <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Settings</a>
+                <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                    Get Started
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <!-- Progress Steps -->
+            <div class="mb-12">
+                <div class="flex justify-between items-center relative">
+
+                    <div class="flex-1"></div>
+                    <div class="flex items-center justify-center">
+                        <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white">
+                            1
+                        </div>
+                        <div class="ml-4 text-sm font-medium text-gray-600">Upload</div>
+                    </div>
+                    <div class="flex-1"></div>
+                    <div class="flex items-center justify-center">
+                        <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600">
+                            2
+                        </div>
+                        <div class="ml-4 text-sm font-medium text-gray-400">Process</div>
+                    </div>
+                    <div class="flex-1"></div>
+                    <div class="flex items-center justify-center">
+                        <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600">
+                            3
+                        </div>
+                        <div class="ml-4 text-sm font-medium text-gray-400">Results</div>
+                    </div>
+                    <div class="flex-1"></div>
+                </div>
+            </div>
+
+            <!-- Upload Section -->
+            <div class="glass-effect rounded-2xl p-8 shadow-lg mb-8">
+                <div class="text-center mb-8">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-4">Smart Document Analysis</h1>
+                    <p class="text-gray-600">Upload your document to get started with AI-powered analysis</p>
+                </div>
+
+                <div class="upload-area rounded-xl p-12 text-center cursor-pointer" id="uploadArea">
+                    <i class="fas fa-cloud-upload-alt text-6xl text-blue-600 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Drag and drop your file here</h3>
+                    <p class="text-gray-600 mb-6">or click to browse</p>
+                    <input type="file" class="hidden" id="fileInput" accept=".pdf,.docx,.txt"
+                        onchange="handleFileChange()" />
+                    <button class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+                        onclick="document.getElementById('fileInput').click()">
+                        Choose File
+                    </button>
+                </div>
+
+                <!-- Show upload status and submit button after file selection -->
+                <div id="uploadStatus" class="mt-6 text-center text-gray-600 hidden"></div>
+                <button id="submitButton"
+                    class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors mt-4 hidden"
+                    onclick="handleSubmit()">Submit</button>
+
+                <div class="mt-6 text-center text-gray-600">
+                    <p>Supported formats: PDF, DOCX, TXT</p>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="glass-effect p-6 rounded-xl shadow-lg card-hover">
+                    <div class="text-blue-600 text-3xl mb-4">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Smart Summarization</h3>
+                    <p class="text-gray-600">Get concise summaries of your documents powered by AI</p>
+                </div>
+
+                <div class="glass-effect p-6 rounded-xl shadow-lg card-hover">
+                    <div class="text-blue-600 text-3xl mb-4">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Interactive Q&A</h3>
+                    <p class="text-gray-600">Ask questions and get instant answers from your documents</p>
+                </div>
+
+                <div class="glass-effect p-6 rounded-xl shadow-lg card-hover">
+                    <div class="text-blue-600 text-3xl mb-4">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Advanced Analytics</h3>
+                    <p class="text-gray-600">Get insights and analytics from your document content</p>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="glass-effect rounded-2xl p-8 shadow-lg">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Recent Activity</h2>
+                <div class="space-y-4">
+                    <div class="flex items-center p-4 bg-white rounded-lg shadow">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                            <i class="fas fa-file-pdf"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-gray-800 font-medium">Financial_Report_2024.pdf</h4>
+                            <p class="text-gray-600 text-sm">Processed 2 hours ago</p>
+                        </div>
+                        <div class="ml-auto">
+                            <button class="text-blue-600 hover:text-blue-700">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center p-4 bg-white rounded-lg shadow">
+                        <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                            <i class="fas fa-file-word"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h4 class="text-gray-800 font-medium">Project_Proposal.docx</h4>
+                            <p class="text-gray-600 text-sm">Processed 5 hours ago</p>
+                        </div>
+                        <div class="ml-auto">
+                            <button class="text-blue-600 hover:text-blue-700">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">About DocAI</h4>
+                    <p class="text-gray-400">Empowering users with intelligent document analysis and insights.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Home</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Features</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Pricing</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Documentation</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">API</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Support</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 DocAI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add hover effect to cards
+        document.querySelectorAll('.card-hover').forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-5px)';
+            });
+            card.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+
+
+        // Handle file input change
+        function handleFileChange() {
+            document.getElementById('submitButton').classList.remove('hidden');  // Show the submit button
+        }
+
+        // Handle form submission
+        document.getElementById('uploadForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent page reload
+
+            const formData = new FormData(this); // Create FormData object with the file
+            const statusDiv = document.getElementById('uploadStatus');  // Element to show upload status
+            const submitButton = document.getElementById('submitButton');
+
+            // Show status message
+            statusDiv.textContent = 'Uploading...';
+
+            // Send the file using fetch API
+            fetch('/upload', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())  // Parse JSON response
+                .then(data => {
+                    if (data.message) {
+                        statusDiv.textContent = data.message;  // Success message
+                    } else {
+                        statusDiv.textContent = 'Error uploading file.';  // Error message
+                    }
+                    submitButton.classList.add('hidden');  // Hide submit button after upload
+                })
+                .catch(error => {
+                    statusDiv.textContent = 'An error occurred while uploading the file.';  // Error handling
+                    submitButton.classList.add('hidden');
+                });
+        });
+    </script>
+
+</body>
+
+</html>
