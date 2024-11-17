@@ -1,10 +1,12 @@
+
 .gradient-bg {
     background: linear-gradient(120deg, #2563eb, #4f46e5);
 }
 
 .glass-effect {
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .upload-area {
@@ -13,8 +15,8 @@
 }
 
 .upload-area:hover {
-    border-color: #2563eb;
-    background: #f8fafc;
+    border-color: #3b82f6;
+    background-color: #f8fafc;
 }
 
 .progress-bar {
@@ -23,7 +25,7 @@
 }
 
 .card-hover {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
 .card-hover:hover {
@@ -33,6 +35,16 @@
 
 .floating-nav {
     animation: float 3s ease-in-out infinite;
+}
+
+/* Add smooth transition for button states */
+button {
+    transition: all 0.3s ease;
+}
+
+button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
 }
 
 @keyframes float {
