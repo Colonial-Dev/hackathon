@@ -14,12 +14,15 @@ app = Flask(__name__)
 UPLOAD_FOLDER      = 'uploads'
 ALLOWED_EXTENSIONS = {'pdf', 'txt', 'xlsx', 'mp3'}
 
+# Create 'uploads/' directory if it doesn't already exist.
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
+# Filetype checker.
 def allowed_path(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+# Opens a PDF file at the provided path and reads it, page by page, into a string.
 def extract_pdf(path) -> str:
     reader = pypdf.PdfReader(path)
     output = ""
@@ -27,21 +30,26 @@ def extract_pdf(path) -> str:
     for page in reader.pages:
         output += page.extract_text(
             extraction_mode="layout",
+            # 1.2 seems to give the best results on the test documents.
             layout_mode_scale_weight=1.2
         )
 
     return output
 
+# Opens an Excel (XLSX) file at the provided path and converts it into a UTF-8 CSV.
 def extract_excel(path) -> str:
     return pandas.read_excel(path, index_col=None).to_csv(encoding="utf-8")
 
+# Opens an MP3 file at the provided path and transcribes it into a string using OpenAI's Whisper base model.
 def extract_speech(path) -> str:
     return pipeline("automatic-speech-recognition", "openai/whisper-base")(path)['text']
 
+# Opens a basic text file at the provided path and returns the contents as a string.
 def extract_text(path) -> str:
     with open(path, 'r') as file:
         return file.read()
 
+# Map of file extensions to extraction handlers.
 handlers = {
     '.pdf'  : extract_pdf,
     '.txt'  : extract_text,
@@ -49,6 +57,12 @@ handlers = {
     '.xlsx' : extract_excel
 }
 
+# File upload API.
+#
+# Given a multipart form data POST containing file data, this endpoint will:
+# * Save the file to a temporary location
+# * Extract or transcribe the text contained within, and save it to a UUID-named file
+# * Drop the original file and return the UUID to the caller via JSON.
 @app.route("/api/upload", methods=["POST"])
 def upload():
     if 'file' not in request.files:
@@ -81,6 +95,12 @@ def upload():
     else:
         return jsonify({"error": "Invalid file type"}), 400
     
+# Summarization API.
+#
+# Given a file UUID in the URL, this endpoint will:
+# * Read the file into memory, assuming it exists.
+# * Invoke LLaMA 3.1 8B via Ollama to summarize the document.
+# * Return the generated summary to the client as JSON.
 @app.route("/api/summarize/<file_id>")
 def summarize(file_id):
     path = os.path.join(UPLOAD_FOLDER, file_id)
@@ -91,7 +111,9 @@ def summarize(file_id):
     text = open(path, "r").read()
 
     output = ollama.chat(
+        # LLaMA 3.1 8B strikes a good balance between speed and accuracy, given our computational constraints.
         model='llama3.1',
+        # Setting the 'temperature' parameter to zero makes the model almost entirely deterministic.
         options={'temperature': 0},
         messages=[
             {'role': 'system', 'content': "You are a document summary generator. The user will present you with a document; you should generate a summary of the document without any framing (e.g. 'here is your summary'.)"},
@@ -101,6 +123,13 @@ def summarize(file_id):
 
     return jsonify({"summary": output['message']['content']}), 200
 
+# Interrogation API.
+#
+# Given a file UUID in the URL and a POSTed JSON payload, this endpoint will:
+# * Fetch the user's query from the JSON payload.
+# * Read the file into memory, assuming it exists.
+# * Invoke LLaMA 3.1 8B via Ollama to answer the user's question.
+# * Return the generated analysis to the client as JSON.
 @app.route("/api/interrogate/<file_id>", methods=["POST"])
 def interrogate(file_id):
     path = os.path.join(UPLOAD_FOLDER, file_id)
@@ -125,6 +154,13 @@ def interrogate(file_id):
 
     return jsonify({"answer": output['message']['content']}), 200
 
+
+# Sentiment analysis API.
+#
+# Given a file UUID in the URL, this endpoint will:
+# * Read the file into memory, assuming it exists.
+# * Iteratively invoke a fine-tuned BERT model over each chunk of the document to perform sentiment analysis.
+# * Generate an aggregate sentiment analysis from the chunks, which is returned to the client as JSON.
 @app.route("/api/sentiment/<file_id>")
 def sentiment(file_id):
     analyzer = pipeline("sentiment-analysis", model="distilbert-base-uncased-finetuned-sst-2-english")
