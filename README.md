@@ -1,4 +1,4 @@
-<h1 align="center">$PROJECT_NAME</h1>
+<h1 align="center">TL;DR</h1>
 <h3 align="center">A simple document summarizer and interrogator.</h3> 
 <h3 align="center">Built for the 2024 Luddy Hackathon.</h3>
 
