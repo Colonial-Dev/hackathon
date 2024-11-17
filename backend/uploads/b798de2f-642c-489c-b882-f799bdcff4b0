@@ -1,0 +1,50 @@
+                                                                                                            JAMES HAYWOOD
+                                                                                      710 N Walnut Street, Bloomington, IN 47408
+                                                                                    jameshaywood@fastmail.com                                  | (317) 954-9128
+
+EDUCATION
+
+Indiana University -                      Bloomington, IN                                                                                                                                                                                       May 2026
+Luddy School of Informatics, Computing, and Engineering                                                                                                                                                                               GPA: 3.75/4.00
+Bachelor of Science in Computer Science
+Intelligent Systems Engineering Minor, Systems Cognate
+Relevant Courses: Data Structures, Computer Architecture, Systems Programming, Networks
+
+WORK EXPERIENCE
+
+ML Systems Integrator                          , Singapore                                                                                                                                                                   June 2024 – Present
+Server Engineer (Full-time intern/Part-time remote)
+        •        Provisioned, installed, and maintained an on-premises web hosting server, for both internal use and external clients.
+        •        Completed all project milestones independently, on budget, and ahead of schedule, even in the face of changing requirements
+                 and technical unknowns.
+        •        Communicated with my supervisor effectively and consistently to monitor progress and blockers.
+        •        Assisted with a variety of other technical tasks as needed, including data translation and manipulation scripts to assist with an
+                 ongoing migration to a new CRM platform.
+        •        Provided ongoing maintenance and support after conclusion of the internship.
+
+PROJECTS
+
+Deduct                                                                                                                                                                                                                                        April 2024
+A graphical Fitch-style natural deduction proof checker, with support for modal logic.
+        •        Designed and implemented a proof parser and checker for students in a symbolic logic course, at the suggestion of my
+                 professor.
+        •        Tested, fuzzed, and subsequently debugged the above for correctness and crash resilience.
+        •        Supported modal logic, unique among existing Fitch-style checkers.
+Exemplar                                                                                                                                                                                                                            September 2023
+A library that makes storing Rust data structures in an SQLite database easy.
+        •        Created multiple macros for instrumenting user-defined types with library code.
+        •        Benchmarked, profiled, and optimized all interfaces to ensure minimal overhead. Achieved speeds of up to 1.6 million row
+                 insertions per second (25% faster than similar libraries.)
+        •        Wrote extensive tests and documentation to ensure user friendliness and stability.
+VEX Robotics                                                                                                                                                                                                                   March – May 2022
+        •        Implemented a variety of robotics algorithms – including odometry and pure pursuit – for use in competitive autonomous
+                 routines.
+        •        Worked effectively towards competition readiness under heavy time constraints after joining the team late in the season.
+        •        Attended the VEX world championship, placing third in the top division during qualifications and ultimately reaching the
+                 quarterfinals before being eliminated.
+
+TECHNICAL SKILLS
+
+Programming Languages:                                Rust, C, C++, C#, Java, SQL, Python + marginal HTML/CSS/JS
+Development Tools:                       Linux, Git + GitHub, OCI containers, Bash/Fish scripting w/ GNU Coreutils
+Miscellaneous:                 CAD, Embedded development (programming, electrical, 3D printing, etcetera)
