@@ -57,6 +57,22 @@ handlers = {
     '.xlsx' : extract_excel
 }
 
+@app.route('/')
+def index():
+    return app.send_static_file("index.html")
+
+@app.route('/processing')
+def processing():
+    return app.send_static_file("processing.html")
+
+@app.route('/result')
+def result():
+    return app.send_static_file("result.html")
+
+@app.route('/style.css')
+def style():
+    return app.send_static_file("style.css")
+
 # File upload API.
 #
 # Given a multipart form data POST containing file data, this endpoint will:
@@ -218,7 +234,6 @@ def sentiment(file_id):
     summed = aggregate_sentiments(result)
 
     return jsonify(summed), 200
-
 
 if __name__ == "__main__":
     app.run(debug=True)
