@@ -105,5 +105,18 @@ def interrogate():
 
     return jsonify({"answer": output['message']['content']}), 200
 
+@app.route("/api/sentiment", methods=["POST"])
+def sentiment():
+    path  = UPLOAD_FOLDER + "/" + request.form['filename']
+
+    if not os.path.exists(path):
+        return jsonify({"error": "File does not exist - did you upload it first?"}), 400
+    
+    text   = handlers[os.path.splitext(path)[1]](path)
+    output = pipeline("sentiment-analysis", model="distilbert-base-uncased-finetuned-sst-2-english")(text[:512])[0]
+
+    return jsonify({"sentiment": output['label'], "score": output['score']})
+
+
 if __name__ == "__main__":
     app.run(debug=True)
