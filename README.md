@@ -1,6 +1,6 @@
 <h1 align="center">Briefly</h1>
 <h3 align="center">
-    A simple document summarizer and interrogator.<br>Built for the 2024 Luddy Hackathon.
+    A simple document summarizer and interrogator.<br>Built for the Fall 2024 Luddy Hackathon; won first place.
 </h3>
 
 <p align="center">
